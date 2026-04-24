@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>3D Store Designer</title>
+<link rel="stylesheet" href="css/style.css">
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/js/controls/OrbitControls.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-brand">🛒 Retail<span>Optimizer</span></div>
+  <ul class="nav-links">
+    <li><a href="index.html" data-i18n="nav_home">Home</a></li>
+    <li><a href="designer.html" data-i18n="nav_designer">2D Designer</a></li>
+    <li><a href="designer3d.html" class="active" data-i18n="nav_3d">3D Designer</a></li>
+    <li><a href="calculator.html" data-i18n="nav_calculator">Calculator</a></li>
+    <li><a href="optimizer.html" data-i18n="nav_optimizer">Optimizer</a></li>
+    <li><a href="insights.html" data-i18n="nav_insights">Insights</a></li>
+    <li><a href="verification.html" data-i18n="nav_verify">Verification</a></li>
+  </ul>
+</nav>
+
+<div class="page">
+  <h1 data-i18n="d3_title">3D Store Designer (with shelf heights)</h1>
+  <p class="subtitle" data-i18n="d3_sub">...</p>
+
+  <div class="designer-wrap">
+    <aside class="dept-palette">
+      <h3 data-i18n="palette_h">Departments</h3>
+      <p class="hint" data-i18n="d3_hint">Drag to rotate · Scroll to zoom</p>
+      <div id="dept3d-list" style="max-height:420px;overflow-y:auto"></div>
+      <button id="clearBtn3d" class="btn btn-secondary" style="margin-top:.8rem;width:100%" data-i18n="clear_canvas">Clear</button>
+      <button id="loadOpt" class="btn btn-ghost" style="margin-top:.4rem;width:100%">Load optimized</button>
+    </aside>
+
+    <div class="canvas-area" id="canvas3dArea">
+      <button class="screenshot-btn" id="screenshot3dBtn" data-i18n="screenshot">📸 Screenshot</button>
+      <div id="canvas3d"></div>
+    </div>
+
+    <aside class="analysis-panel">
+      <h3 data-i18n="d3_selected">Selected department</h3>
+      <div id="sel-info"><p class="empty" data-i18n="d3_none">None selected</p></div>
+      <div id="sel-controls" style="display:none">
+        <label><span data-i18n="d3_height">Shelf height (m)</span>: <span id="hVal">1.8</span>
+          <input type="range" id="hSlide" min="0.8" max="2.5" step="0.1" value="1.8">
+        </label>
+        <label><span data-i18n="d3_area">Footprint (m²)</span>: <span id="aVal">60</span>
+          <input type="range" id="aSlide" min="20" max="200" step="5" value="60">
+        </label>
+      </div>
+      <hr style="margin:.8rem 0;border:none;border-top:1px solid var(--border)">
+      <h4 data-i18n="summary">Summary</h4>
+      <p><span data-i18n="depts_placed">Departments placed</span>: <strong id="dep3dCount">0</strong></p>
+      <p><span data-i18n="pred_rev">Sum of joint sales</span>: <strong id="pred3dRev">–</strong></p>
+      <button id="downloadBtn3d" class="btn btn-primary" style="width:100%;margin-top:.8rem" data-i18n="export_json">📥 Export (JSON)</button>
+    </aside>
+  </div>
+</div>
+
+<script src="js/analytics.js"></script>
+<script src="js/data.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/designer3d.js"></script>
+</body>
+</html>

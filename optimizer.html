@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Store Optimizer</title>
+<link rel="stylesheet" href="css/style.css">
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-brand">🛒 Retail<span>Optimizer</span></div>
+  <ul class="nav-links">
+    <li><a href="index.html" data-i18n="nav_home">Home</a></li>
+    <li><a href="designer.html" data-i18n="nav_designer">2D Designer</a></li>
+    <li><a href="designer3d.html" data-i18n="nav_3d">3D Designer</a></li>
+    <li><a href="calculator.html" data-i18n="nav_calculator">Calculator</a></li>
+    <li><a href="optimizer.html" class="active" data-i18n="nav_optimizer">Optimizer</a></li>
+    <li><a href="insights.html" data-i18n="nav_insights">Insights</a></li>
+    <li><a href="verification.html" data-i18n="nav_verify">Verification</a></li>
+  </ul>
+</nav>
+
+<div class="page">
+  <h1 data-i18n="opt_title">🎯 Store Revenue Optimizer</h1>
+  <p class="subtitle" data-i18n="opt_sub">...</p>
+
+  <div class="opt-wrap">
+    <div class="opt-controls">
+      <h3 data-i18n="opt_step1">1. Store type</h3>
+      <label><input type="radio" name="optStoreType" value="super" checked> <span data-i18n="supermarket">Supermarket</span></label>
+      <label><input type="radio" name="optStoreType" value="hyper"> <span data-i18n="hypermarket">Hypermarket</span></label>
+      <h3 data-i18n="opt_step2">2. Departments</h3>
+      <div id="optDeptList" class="dept-checklist"></div>
+      <button id="selectAll" class="btn btn-ghost" style="width:100%;margin-top:.4rem" data-i18n="select_all">Select all 28</button>
+      <h3 data-i18n="opt_step3">3. Run</h3>
+      <button id="runOpt" class="btn btn-primary btn-big" data-i18n="run_opt">⚡ Optimize Layout</button>
+    </div>
+
+    <div class="opt-results" id="optResults">
+      <button class="screenshot-btn" id="optScreenshot" data-i18n="screenshot">📸</button>
+      <h3 data-i18n="optimized_layout">Optimized Layout</h3>
+      <canvas id="optCanvas" width="700" height="500"></canvas>
+      <div class="opt-summary" id="optSummary">
+        <p class="empty" data-i18n="click_run">Click "Optimize Layout" to generate.</p>
+      </div>
+      <button id="exportOpt" class="btn btn-primary" style="display:none;margin-top:.5rem" data-i18n="export_json">📥 Download blueprint (JSON)</button>
+    </div>
+  </div>
+
+  <div class="info-box" style="margin-top:1.5rem">
+    <h3>How it works — Eq. (5)–(7)</h3>
+    <p>Step 1: for each department pair, compute ideal distance:</p>
+    <pre>D*ᵢⱼ = −(β_Layout×L + β_Variety×V + β_Hyper×H + β_IDD) / (2 × β_IDD²)</pre>
+    <p>Step 2: gradient-descent in 2D to match those ideal distances within the store footprint. Revenue lift benchmarked to Table 7 of the paper (+3.20% hypermarket, +4.08% supermarket).</p>
+  </div>
+</div>
+
+<script src="js/analytics.js"></script>
+<script src="js/data.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/optimizer.js"></script>
+</body>
+</html>

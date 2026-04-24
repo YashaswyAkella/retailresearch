@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>2D Store Designer</title>
+<link rel="stylesheet" href="css/style.css">
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-brand">🛒 Retail<span>Optimizer</span></div>
+  <ul class="nav-links">
+    <li><a href="index.html" data-i18n="nav_home">Home</a></li>
+    <li><a href="designer.html" class="active" data-i18n="nav_designer">2D Designer</a></li>
+    <li><a href="designer3d.html" data-i18n="nav_3d">3D Designer</a></li>
+    <li><a href="calculator.html" data-i18n="nav_calculator">Calculator</a></li>
+    <li><a href="optimizer.html" data-i18n="nav_optimizer">Optimizer</a></li>
+    <li><a href="insights.html" data-i18n="nav_insights">Insights</a></li>
+    <li><a href="verification.html" data-i18n="nav_verify">Verification</a></li>
+  </ul>
+</nav>
+
+<div class="page">
+  <h1 data-i18n="designer_title">Interactive 2D Store Designer</h1>
+  <p class="subtitle" data-i18n="designer_sub">...</p>
+
+  <div class="designer-wrap">
+    <aside class="dept-palette">
+      <h3 data-i18n="palette_h">Departments</h3>
+      <p class="hint" data-i18n="palette_hint">Click a department, then click the canvas.</p>
+      <div id="dept-list"></div>
+      <button id="clearBtn" class="btn btn-secondary" style="margin-top:.8rem;width:100%" data-i18n="clear_canvas">Clear Canvas</button>
+      <hr style="margin:.8rem 0;border:none;border-top:1px solid var(--border)">
+      <h4 data-i18n="store_settings">Store Settings</h4>
+      <label><span data-i18n="store_width">Width (m)</span>: <input type="number" id="storeW" value="60" min="20" max="200"></label>
+      <label><span data-i18n="store_height">Height (m)</span>: <input type="number" id="storeH" value="40" min="15" max="150"></label>
+      <label><span data-i18n="layout_style">Layout</span>:
+        <select id="layoutStyle">
+          <option value="grid">Grid</option>
+          <option value="racetrack">Racetrack</option>
+          <option value="freeflow">Free-flow</option>
+        </select>
+      </label>
+      <button id="applyStoreBtn" class="btn btn-primary" style="margin-top:.4rem;width:100%" data-i18n="apply">Apply</button>
+    </aside>
+
+    <div class="canvas-area" id="canvasArea">
+      <button class="screenshot-btn" id="screenshotBtn" data-i18n="screenshot">📸 Screenshot</button>
+      <canvas id="storeCanvas" width="900" height="600"></canvas>
+      <p class="canvas-hint">🚪 = Store entrance (bottom-left). Distances from department midpoints.</p>
+    </div>
+
+    <aside class="analysis-panel">
+      <h3 data-i18n="analysis">Live Analysis</h3>
+      <div id="pairAnalysis"><p class="empty" data-i18n="place_prompt">Place at least 2 departments to see pair analysis.</p></div>
+      <hr style="margin:.8rem 0;border:none;border-top:1px solid var(--border)">
+      <h4 data-i18n="summary">Summary</h4>
+      <div id="summary">
+        <p><span data-i18n="depts_placed">Departments placed</span>: <strong id="deptCount">0</strong></p>
+        <p><span data-i18n="avg_idd">Avg. IDD</span>: <strong id="avgIDD">–</strong> m</p>
+        <p><span data-i18n="pred_rev">Sum of joint sales</span>: <strong id="predRev">–</strong></p>
+      </div>
+      <button id="downloadBtn" class="btn btn-primary" style="width:100%;margin-top:.8rem" data-i18n="export_json">📥 Export Layout (JSON)</button>
+    </aside>
+  </div>
+</div>
+
+<script src="js/analytics.js"></script>
+<script src="js/data.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/designer.js"></script>
+</body>
+</html>

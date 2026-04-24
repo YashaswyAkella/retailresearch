@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Verification</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-brand">🛒 Retail<span>Optimizer</span></div>
+  <ul class="nav-links">
+    <li><a href="index.html" data-i18n="nav_home">Home</a></li>
+    <li><a href="designer.html" data-i18n="nav_designer">2D Designer</a></li>
+    <li><a href="designer3d.html" data-i18n="nav_3d">3D Designer</a></li>
+    <li><a href="calculator.html" data-i18n="nav_calculator">Calculator</a></li>
+    <li><a href="optimizer.html" data-i18n="nav_optimizer">Optimizer</a></li>
+    <li><a href="insights.html" data-i18n="nav_insights">Insights</a></li>
+    <li><a href="verification.html" class="active" data-i18n="nav_verify">Verification</a></li>
+  </ul>
+</nav>
+
+<div class="page">
+  <h1 data-i18n="verify_title">Model Transparency & Verification</h1>
+  <p class="subtitle" data-i18n="verify_sub">Every coefficient used in this tool is extracted directly from the paper's tables.</p>
+
+  <section class="insight">
+    <h2>Model 1 — Main Regression (Table 5)</h2>
+    <p>Used by: Calculator, 2D Designer, 3D Designer pair analysis.</p>
+    <table class="coeff-table">
+      <tr><th>Coefficient</th><th>Value</th><th>p-value</th></tr>
+      <tr><td>Constant (α)</td><td class="num">391,189.229</td><td>0.000</td></tr>
+      <tr><td>β_IDD</td><td class="num">1,143.647</td><td>0.000</td></tr>
+      <tr><td>β_IDD²</td><td class="num">−24.059</td><td>0.000</td></tr>
+      <tr><td>β_Layout</td><td class="num">49,944.806</td><td>0.000</td></tr>
+      <tr><td>β_Layout × IDD</td><td class="num">435.773</td><td>0.001</td></tr>
+      <tr><td>β_Variety</td><td class="num">2,936.467</td><td>0.000</td></tr>
+      <tr><td>β_Variety × IDD</td><td class="num">70.324</td><td>0.000</td></tr>
+      <tr><td>β_Hypermarket</td><td class="num">267,571.576</td><td>0.000</td></tr>
+    </table>
+  </section>
+
+  <section class="insight">
+    <h2>Model 2 — Optimization Model (Web Appendix F, Table W6)</h2>
+    <p>Used by: Revenue Optimizer (includes the Hypermarket × IDD interaction).</p>
+    <table class="coeff-table">
+      <tr><th>Coefficient</th><th>Value</th><th>p-value</th></tr>
+      <tr><td>β_IDD</td><td class="num">1,080.509</td><td>0.000</td></tr>
+      <tr><td>β_IDD²</td><td class="num">−26.200</td><td>0.000</td></tr>
+      <tr><td>β_Layout</td><td class="num">50,873.212</td><td>0.000</td></tr>
+      <tr><td>β_Layout × IDD</td><td class="num">391.516</td><td>0.002</td></tr>
+      <tr><td>β_Variety</td><td class="num">2,916.589</td><td>0.000</td></tr>
+      <tr><td>β_Variety × IDD</td><td class="num">70.486</td><td>0.000</td></tr>
+      <tr><td>β_Hypermarket</td><td class="num">263,523.076</td><td>0.000</td></tr>
+      <tr><td>β_Hypermarket × IDD</td><td class="num">410.190</td><td>0.001</td></tr>
+    </table>
+  </section>
+
+  <section class="insight">
+    <h2>Equations implemented</h2>
+    <p><strong>Joint-Sales prediction (Eq. 2):</strong></p>
+    <div class="math">JS = α + β_IDD·IDD + β_IDD²·IDD² + β_Layout·L + β_Layout×IDD·(L·IDD)<br>
+         &nbsp;&nbsp;&nbsp; + β_Variety·V + β_Variety×IDD·(V·IDD) + β_Hyper·H + ε</div>
+    <p><strong>Optimal distance between departments i & j (Eq. 6):</strong></p>
+    <div class="math">D*ᵢⱼ = −(β_Layout×IDD·L + β_Variety×IDD·V + β_Hyper×IDD·H + β_IDD) / (2·β_IDD²)</div>
+  </section>
+
+  <section class="insight">
+    <h2>Verification checkpoints</h2>
+    <table class="coeff-table">
+      <tr><th>Checkpoint</th><th>Tool output</th><th>Paper states</th><th>Match</th></tr>
+      <tr><td>Inflection (Model 1)</td><td class="num">23.77 m</td><td class="num">23.76 m</td><td>✅</td></tr>
+      <tr><td>Supermarket lift</td><td class="num">+4.08%</td><td class="num">+4.08%</td><td>✅</td></tr>
+      <tr><td>Hypermarket lift</td><td class="num">+3.20%</td><td class="num">+3.20%</td><td>✅</td></tr>
+      <tr><td>Status-quo super weekly</td><td class="num">SEK 2,818,421</td><td class="num">SEK 2,818,421</td><td>✅</td></tr>
+      <tr><td>Status-quo hyper weekly</td><td class="num">SEK 6,323,329</td><td class="num">SEK 6,323,329</td><td>✅</td></tr>
+    </table>
+  </section>
+
+  <section class="insight">
+    <h2>Assumptions (documented)</h2>
+    <ul>
+      <li>Base currency <strong>SEK</strong>; EUR figures shown in UI use a ~0.087 conversion rate (fixed in <code>i18n.js</code>; change as needed).</li>
+      <li>Random-effects <strong>residuals</strong> and endogeneity-control residuals are set to <strong>0</strong> when predicting expected values (they average to 0 by construction).</li>
+      <li>For the 3D view, department footprints match <strong>Figure 6 averages</strong> where available (bread 146.33 m², fish 31.44 m², deli 32.6 m²); others are reasonable grocery defaults (editable live).</li>
+      <li>Default <strong>shelf heights</strong> are 1.2–2.1 m (typical grocery range). 3D is a future-research extension flagged in the paper [1].</li>
+      <li>The optimizer uses a JavaScript <strong>gradient-descent</strong> approximation of the BARON global solver used in the paper. For production redesigns, retailer-specific constraints (entrance, loading bays, columns) should be added.</li>
+    </ul>
+  </section>
+</div>
+<script src="js/analytics.js"></script>
+<script src="js/i18n.js"></script>
+</body>
+</html>

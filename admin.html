@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Admin — Usage Dashboard</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-brand">🛒 Retail<span>Optimizer</span></div>
+  <ul class="nav-links"><li><a href="index.html">← Back to site</a></li></ul>
+</nav>
+<div class="page">
+  <h1>📊 Local Usage Dashboard</h1>
+  <p class="subtitle">Events captured in this browser's localStorage. For site-wide tracking, see Google Analytics 4 dashboard (if configured in <code>js/analytics.js</code>).</p>
+  <div id="stats"></div>
+  <button class="btn btn-secondary" id="exportBtn">Export CSV</button>
+  <button class="btn btn-ghost" id="clearBtn">Clear local log</button>
+  <div id="eventsTable" style="margin-top:1rem"></div>
+</div>
+<script src="js/analytics.js"></script>
+<script>
+function render() {
+  const events = RLOAnalytics.getEvents();
+  const byName = {}, byPage = {}, byLang = {};
+  events.forEach(e => {
+    byName[e.name] = (byName[e.name]||0) + 1;
+    byPage[e.page] = (byPage[e.page]||0) + 1;
+    byLang[e.lang] = (byLang[e.lang]||0) + 1;
+  });
+  document.getElementById("stats").innerHTML = `
+    <div class="stats" style="background:transparent;color:inherit;padding:1rem 0;gap:2rem;justify-content:flex-start">
+      <div class="stat"><strong>${events.length}</strong><span>total events</span></div>
+      <div class="stat"><strong>${Object.keys(byName).length}</strong><span>event types</span></div>
+      <div class="stat"><strong>${Object.keys(byPage).length}</strong><span>pages</span></div>
+    </div>
+    <div class="insight"><h2>By event</h2>
+      <table class="coeff-table"><tr><th>Event</th><th>Count</th></tr>
+      ${Object.entries(byName).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<tr><td>${k}</td><td class="num">${v}</td></tr>`).join("")}
+      </table></div>
+    <div class="insight"><h2>By page</h2>
+      <table class="coeff-table"><tr><th>Page</th><th>Visits</th></tr>
+      ${Object.entries(byPage).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<tr><td>${k}</td><td class="num">${v}</td></tr>`).join("")}
+      </table></div>
+    <div class="insight"><h2>By language</h2>
+      <table class="coeff-table"><tr><th>Lang</th><th>Count</th></tr>
+      ${Object.entries(byLang).map(([k,v])=>`<tr><td>${k}</td><td class="num">${v}</td></tr>`).join("")}
+      </table></div>`;
+  const rows = events.slice().reverse().slice(0,50).map(e =>
+    `<tr><td>${new Date(e.t).toLocaleString()}</td><td>${e.name}</td><td>${e.page}</td><td>${e.lang}</td><td><code>${JSON.stringify(e.params)}</code></td></tr>`
+  ).join("");
+  document.getElementById("eventsTable").innerHTML = `
+    <h2>Recent 50 events</h2>
+    <table class="coeff-table"><tr><th>Time</th><th>Event</th><th>Page</th><th>Lang</th><th>Params</th></tr>${rows}</table>`;
+}
+document.getElementById("clearBtn").onclick = () => { RLOAnalytics.clearEvents(); render(); };
+document.getElementById("exportBtn").onclick = () => {
+  const events = RLOAnalytics.getEvents();
+  const csv = "time,name,page,lang,params\n" +
+    events.map(e => `${new Date(e.t).toISOString()},${e.name},${e.page},${e.lang},"${JSON.stringify(e.params).replace(/"/g,'""')}"`).join("\n");
+  const blob = new Blob([csv], { type:"text/csv" });
+  const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "rlo-events.csv"; a.click();
+};
+render();
+</script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IDD Calculator</title>
+<link rel="stylesheet" href="css/style.css">
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-brand">🛒 Retail<span>Optimizer</span></div>
+  <ul class="nav-links">
+    <li><a href="index.html" data-i18n="nav_home">Home</a></li>
+    <li><a href="designer.html" data-i18n="nav_designer">2D Designer</a></li>
+    <li><a href="designer3d.html" data-i18n="nav_3d">3D Designer</a></li>
+    <li><a href="calculator.html" class="active" data-i18n="nav_calculator">Calculator</a></li>
+    <li><a href="optimizer.html" data-i18n="nav_optimizer">Optimizer</a></li>
+    <li><a href="insights.html" data-i18n="nav_insights">Insights</a></li>
+    <li><a href="verification.html" data-i18n="nav_verify">Verification</a></li>
+  </ul>
+</nav>
+
+<div class="page">
+  <h1 data-i18n="calc_title">Joint-Sales Calculator</h1>
+  <p class="subtitle" data-i18n="calc_sub">...</p>
+
+  <div class="calc-wrap">
+    <form class="calc-form" id="calcForm">
+      <div class="field">
+        <label data-i18n="dept_a">Department A</label>
+        <select id="deptA"></select>
+      </div>
+      <div class="field">
+        <label data-i18n="dept_b">Department B</label>
+        <select id="deptB"></select>
+      </div>
+      <div class="field">
+        <label><span data-i18n="idd_label">IDD (m)</span>: <span id="iddVal">20</span></label>
+        <input type="range" id="idd" min="1" max="100" value="20">
+      </div>
+      <div class="field">
+        <label>
+          <input type="checkbox" id="nonIdentical">
+          <span data-i18n="non_identical">Non-identical layouts</span>
+          <small data-i18n="non_identical_hint">(grid + free-flow, etc.)</small>
+        </label>
+      </div>
+      <div class="field">
+        <label><span data-i18n="variety_diff">Variety differential</span>: <span id="varVal">3</span></label>
+        <input type="range" id="variety" min="0" max="15" value="3">
+      </div>
+      <div class="field">
+        <label data-i18n="store_type">Store type</label>
+        <label><input type="radio" name="storeType" value="super" checked> <span data-i18n="supermarket">Supermarket</span></label>
+        <label><input type="radio" name="storeType" value="hyper"> <span data-i18n="hypermarket">Hypermarket</span></label>
+      </div>
+    </form>
+
+    <div class="calc-results" id="calcResults">
+      <button class="screenshot-btn" id="calcScreenshot" data-i18n="screenshot">📸</button>
+      <div class="result-big">
+        <span class="result-label" data-i18n="pred_joint">Predicted weekly joint sales</span>
+        <span class="result-value" id="jsValue">€ 0</span>
+        <span class="result-sub"><span data-i18n="optimal_dist">Optimal distance for this pair</span>: <strong id="optValue">–</strong> m</span>
+      </div>
+      <div class="categorization" id="category">
+        <div class="cat-badge" id="catBadge">—</div>
+        <p id="catText"></p>
+      </div>
+      <div>
+        <canvas id="curveChart" width="600" height="320"></canvas>
+        <p class="chart-caption">Red dot = current IDD · Dashed line = optimal · Curve uses Table 5 coefficients.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="js/analytics.js"></script>
+<script src="js/data.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/calculator.js"></script>
+</body>
+</html>
