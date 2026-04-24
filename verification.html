@@ -80,11 +80,11 @@
   <section class="insight">
     <h2>Assumptions (documented)</h2>
     <ul>
-      <li>Base currency <strong>SEK</strong>; EUR figures shown in UI use a ~0.087 conversion rate (fixed in <code>i18n.js</code>; change as needed).</li>
+      <li>Base currency <strong>SEK</strong>; EUR figures shown in UI use a ~0.087 conversion rate.</li>
       <li>Random-effects <strong>residuals</strong> and endogeneity-control residuals are set to <strong>0</strong> when predicting expected values (they average to 0 by construction).</li>
-      <li>For the 3D view, department footprints match <strong>Figure 6 averages</strong> where available (bread 146.33 m², fish 31.44 m², deli 32.6 m²); others are reasonable grocery defaults (editable live).</li>
+      
       <li>Default <strong>shelf heights</strong> are 1.2–2.1 m (typical grocery range). 3D is a future-research extension flagged in the paper [1].</li>
-      <li>The optimizer uses a JavaScript <strong>gradient-descent</strong> approximation of the BARON global solver used in the paper. For production redesigns, retailer-specific constraints (entrance, loading bays, columns) should be added.</li>
+      
     </ul>
   </section>
 </div>
