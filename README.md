@@ -11,9 +11,7 @@ https://yashaswyakella.github.io/retailresearch/
 
 ## ✨ Features
 - 🗺️ 2D drag-and-drop store designer
-- 🏬 3D view with editable shelf heights
 - 📈 Joint-sales calculator with live inverted-U curve
-- 🎯 Full store optimizer using paper Equations (5)–(7)
 - 🔬 Transparency page showing every regression coefficient
 - 🌐 3 languages: English / Italiano / Svenska
 - 📸 One-click PNG screenshot export for decks
