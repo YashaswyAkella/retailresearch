@@ -12,7 +12,7 @@
       screenshot_export, export_json, 3d_height_change
    ============================================================ */
 
-const GA_MEASUREMENT_ID = "G-XXXXXXXXXX";  // ← replace with your GA4 ID
+const GA_MEASUREMENT_ID = "G-QFNPY0RT0L";  
 
 const RLOAnalytics = (function() {
   const STORAGE_KEY = "rlo_events";
