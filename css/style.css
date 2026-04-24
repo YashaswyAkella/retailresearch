@@ -146,33 +146,30 @@ table.coeff-table td.num{text-align:right;font-family:"SF Mono",Menlo,monospace}
   .nav-links{font-size:.85rem;gap:.7rem}
 }
 
-.press {
-  background: #f8f9fb;
-  border-top: 1px solid #eee;
-  border-bottom: 1px solid #eee;
-  padding: 12px 20px;
-  text-align: center;
-}
 
-.press-content {
-  font-size: 14px;
-  color: #666;
-}
 
-.press-label {
-  margin-right: 8px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
 
-.press-badge {
+
+.press-inline {
+  display: inline-block;
+  margin-top: 10px;
+  margin-left: 0;
+  padding: 8px 14px;
+  background: linear-gradient(135deg, #111, #333);
+  color: #fff;
+  border-radius: 999px;
+  font-size: 13px;
   font-weight: 600;
-  color: #111;
-  text-decoration: none;
-  border-bottom: 1px solid transparent;
-  transition: 0.2s ease;
+  letter-spacing: 0.02em;
 }
 
-.press-badge:hover {
-  border-color: #111;
+.press-inline a {
+  color: #fff;
+  text-decoration: none;
+  margin-left: 6px;
+  border-bottom: 1px solid rgba(255,255,255,0.6);
+}
+
+.press-inline a:hover {
+  border-bottom-color: #fff;
 }
